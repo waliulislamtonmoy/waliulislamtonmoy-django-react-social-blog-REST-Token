@@ -6,7 +6,7 @@ export const fetchProfile = createAsyncThunk(
   async () => {
     const res = await axios.get("http://127.0.0.1:8000/api/profile/", {
       headers: {
-        Authorization: "token 27f00cfa99aa608e9e3a8de3dde5ddf8751d3bbc",
+        Authorization: `token ${window.localStorage.getItem("token")}`,
       },
     });
     return res.data;

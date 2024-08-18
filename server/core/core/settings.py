@@ -128,6 +128,11 @@ MEDIA_URL='/media/'
 MEDIA_ROOT=MEDIA_DIR
 MEDIAFILES_DIRS=MEDIA_ROOT
 
+
+LOGIN_REDIRECT_URL="/"
+LOGIN_URL="api/login/"
+LOGOUT_REDIRECT_URL=""
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

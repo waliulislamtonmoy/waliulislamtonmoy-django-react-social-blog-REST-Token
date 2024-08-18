@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProfile } from "../Features/ProfileSlice";
+import { NavLink } from "react-router-dom";
 
 const Navigations = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.profileR.data);
+  useEffect(() => {
+    dispatch(fetchProfile());
+  }, [dispatch]);
+
+  const handleLogout = () => {
+    window.localStorage.clear();
+    window.location.href = "/";
+  };
   return (
     <div>
       <nav className="bg-gray-100 border-gray-200 ">
@@ -39,54 +52,70 @@ const Navigations = () => {
           </button>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white ">
-              <li>
-                <a
-                  href="/"
-                  className="block px-5 py-3 hover:bg-green-300 rounded   "
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="block px-5 py-3 hover:bg-green-300 rounded   "
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="profile/"
-                  className="block px-5 py-3 hover:bg-green-300 rounded   "
-                >
-                  Profile
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="block px-5 py-3 hover:bg-green-300 rounded   "
-                >
-                  Sign Up
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="block px-5 py-3 hover:bg-green-300 rounded  "
-                >
-                  Login
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="block px-5 py-3 hover:bg-green-300 rounded  0 "
-                >
-                  Logout
-                </a>
-              </li>
+              {user !== null ? (
+                <>
+                  <li>
+                    <a
+                      href="/"
+                      className="block px-5 py-3 hover:bg-green-300 rounded   "
+                    >
+                      Home
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="block px-5 py-3 hover:bg-green-300 rounded   "
+                    >
+                      About
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="profile/"
+                      className="block px-5 py-3 hover:bg-green-300 rounded   "
+                    >
+                      Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="block px-5 py-3 hover:bg-red-500 rounded  0 "
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </a>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <a
+                      href="/"
+                      className="block px-5 py-3 hover:bg-green-500 rounded bg-gray-500 text-white   "
+                    >
+                      Home
+                    </a>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/signup"
+                      className="block px-5 py-3 hover:bg-green-500 rounded bg-green-700 text-white   "
+                    >
+                      Sign Up
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/signin"
+                      className="block px-5 py-3 hover:bg-green-500 bg-green-700 rounded text-white  "
+                    >
+                      Login
+                    </NavLink>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
