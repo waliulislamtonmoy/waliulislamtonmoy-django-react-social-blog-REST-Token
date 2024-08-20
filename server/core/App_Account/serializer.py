@@ -7,7 +7,9 @@ from django.contrib.auth.models import User
 class UserProfileSerializer(ModelSerializer):
     class Meta:
         model=User
-        fields=['username','first_name','last_name','email']
+        fields=['username','password','first_name','last_name','email']
+        
+        extra_kwargs={'password':{'write_only':True,'required':True}}
         
         
 class ProfileSerializer(ModelSerializer):
